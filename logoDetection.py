@@ -1,7 +1,7 @@
 from google.cloud import vision_v1p2beta1 as vision 
 from google.oauth2 import service_account
 def detect_logo(file_path):
-    keypath = 'd:\\codes\\LogoDetection\\logo-detection-system-811c426b1dea.json '
+    keypath = 'd:\\codes\\LogoDetection\\logo-detection-system-811c426b1dea.json'
     credentials = service_account.Credentials.from_service_account_file(keypath)
     client = vision.ImageAnnotatorClient(credentials=credentials)
     
