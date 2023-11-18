@@ -1,14 +1,16 @@
 from google.cloud import vision_v1p2beta1 as vision 
 from google.oauth2 import service_account
 import streamlit as st
+from PIL import Image 
+import io
 # import os
-def detect_logo(file_path):
+def detect_logo(image_path):
     # keypath = os.path.join('D:','codes','LogoDetection','logo-detection-system-811c426b1dea.json')
     keypath = 'logo-detection-system.json'
     credentials = service_account.Credentials.from_service_account_file(keypath)
     client = vision.ImageAnnotatorClient(credentials=credentials)
     
-    with open(file_path, 'rb') as image_file:
+    with open(image_path, 'rb') as image_file:
         content = image_file.read()
         
         image = vision.Image(content = content)
@@ -22,7 +24,19 @@ def detect_logo(file_path):
         
         else:
             st.write("No logos Detected")
-            
-# My_api_key = "AIzaSyAu0whNgg3KE0ifp4nT4jfPe3Cd7Ui9D54"
-detect_logo('kfc.png')
+
+picture = st.camera_input("Take a Photo")
+imageWidget = st.image(picture)
+if st.button("Capture"):
+    # tempImage = imageWidget
+    tempImagePath = "captured_image.jpg"
+    image_data = picture.getvalue()
+    with open(tempImagePath, 'wb') as f:
+        f.write(image_data)
+    # image = Image.open('tempImagePath')
+    # image.save(tempImagePath)
+    st.success("Saved Image")
+    
+if st.button("Detect Logo"):
+    detect_logo("captured_image.jpg")
 # detect_logo('D:/codes/LogoDetection/McD.jpg')
