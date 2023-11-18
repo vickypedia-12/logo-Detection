@@ -4,6 +4,8 @@ import streamlit as st
 from PIL import Image 
 import io
 # import os
+st.write(st.__version__)
+
 def detect_logo(image_path):
     # keypath = os.path.join('D:','codes','LogoDetection','logo-detection-system-811c426b1dea.json')
     keypath = 'logo-detection-system.json'
